@@ -36,8 +36,7 @@ public class SecurityConfig {
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID"))
         .sessionManagement(session -> session
-            .maximumSessions(1)
-            .maxSessionsPreventsLogin(false));
+            .maximumSessions(1));
     return http.build();
   }
 
