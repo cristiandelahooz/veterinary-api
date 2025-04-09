@@ -2,24 +2,20 @@ package com.veterinarynux.veterinary_api.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.veterinarynux.veterinary_api.model.User;
 import com.veterinarynux.veterinary_api.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
-
-  @Autowired
-  public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
-  }
 
   public User registerUser(User user) {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -32,6 +28,10 @@ public class UserService {
 
   public Optional<User> findUserByEmail(String email) {
     return Optional.ofNullable(userRepository.findByEmail(email));
+  }
+
+  public Optional<User> findUserByUsername(String username) {
+    return Optional.ofNullable(userRepository.findByUsername(username));
   }
 
   public void deleteUser(Long id) {
