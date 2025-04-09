@@ -43,7 +43,7 @@ public class User extends Auditable {
   private ClientDetails clienteDetails;
 
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private VeterinarianDetails veterinarioDetails;
+  private VeterinarianDetails veterinarianDetails;
 
   public User(String name, String email, String password, String username,
       Set<Role> roles) {
