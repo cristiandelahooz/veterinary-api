@@ -3,6 +3,7 @@ package com.veterinarynux.veterinary_api.model;
 import java.time.LocalDateTime;
 
 import com.veterinarynux.veterinary_api.model.enums.AppointmentStatus;
+import com.veterinarynux.veterinary_api.model.enums.AppointmentType;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,4 +33,7 @@ public class Appointment {
 
   @Enumerated(EnumType.STRING)
   private AppointmentStatus status;
+
+  @Enumerated(EnumType.STRING)
+  private AppointmentType type;
 }
