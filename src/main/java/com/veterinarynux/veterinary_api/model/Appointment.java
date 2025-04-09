@@ -1,6 +1,9 @@
 package com.veterinarynux.veterinary_api.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import com.veterinarynux.veterinary_api.model.enums.AppointmentStatus;
 import com.veterinarynux.veterinary_api.model.enums.AppointmentType;
@@ -30,12 +33,40 @@ public class Appointment {
   @JoinColumn(name = "veterinarian_id", nullable = false)
   private VeterinarianDetails veterinarianDetails;
 
-  @Column(name = "appointment_date", nullable = false)
-  private LocalDateTime date;
+  @Column(name = "appointment_start_date", nullable = false)
+  private LocalDateTime startDate;
+
+  @Column(name = "appointment_end_date", nullable = false)
+  private LocalDateTime endDate;
 
   @Enumerated(EnumType.STRING)
   private AppointmentStatus status;
 
   @Enumerated(EnumType.STRING)
   private AppointmentType type;
+
+  public boolean between(String hour) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+    LocalTime targetTime = LocalTime.parse(hour, formatter);
+    LocalTime startTime = startDate.toLocalTime();
+    LocalTime endTime = endDate.toLocalTime();
+    return (targetTime.isAfter(startTime) || targetTime.equals(startTime)) &&
+        (targetTime.isBefore(endTime) || targetTime.equals(endTime));
+  }
+
+  public String range() {
+    return formatHour(startDate.toLocalTime().getHour()) + " - " + formatHour(endDate.toLocalTime().getHour());
+  }
+
+  public boolean isDay(String day) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d");
+    LocalDate targetDate = LocalDate.parse(day, formatter);
+    return startDate.toLocalDate().equals(targetDate);
+  }
+
+  private String formatHour(int hour) {
+    String period = hour < 12 ? "AM" : "PM";
+    int formattedHour = hour % 12 == 0 ? 12 : hour % 12;
+    return formattedHour + ":00 " + period;
+  }
 }
