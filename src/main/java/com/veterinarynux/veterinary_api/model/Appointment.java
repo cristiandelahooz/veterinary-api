@@ -20,6 +20,8 @@ public class Appointment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "description", nullable = false)
+  private String description;
   @ManyToOne
   @JoinColumn(name = "client_id", nullable = false)
   private ClientDetails clientDetails;
