@@ -1,8 +1,8 @@
 package com.veterinarynux.veterinary_api.model;
 
-import com.veterinarynux.veterinary_api.model.base.Auditable;
-import com.veterinarynux.veterinary_api.model.enums.*;
+import java.util.Set;
 
+import com.veterinarynux.veterinary_api.model.base.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,27 +18,39 @@ public class User extends Auditable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+
+  @Column(unique = true)
   private String email;
+
+  @Column(unique = true)
   private String username;
   private String password;
-  private String phoneNumber;
+  private String phone;
   private String address;
+  @Builder.Default
+  private boolean active = true;
 
-  @Enumerated(jakarta.persistence.EnumType.STRING)
-  private Role rol;
+  @Singular
+  @ManyToMany(fetch = FetchType.EAGER, cascade = {
+      CascadeType.DETACH,
+      CascadeType.MERGE,
+      CascadeType.PERSIST,
+      CascadeType.REFRESH
+  })
+  private Set<Role> roles;
 
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private ClientDetails clienteInfo;
+  private ClientDetails clienteDetails;
 
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private VeterinarianDetails veterinarioInfo;
+  private VeterinarianDetails veterinarioDetails;
 
   public User(String name, String email, String password, String username,
-      Role rol) {
+      Set<Role> roles) {
     this.name = name;
     this.email = email;
     this.password = password;
     this.username = username;
-    this.rol = rol;
+    this.roles = roles;
   }
 }
