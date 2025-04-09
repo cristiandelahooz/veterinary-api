@@ -15,8 +15,6 @@ public class ClientDetails extends Auditable {
   @Id
   private Long id;
 
-  private String address;
-
   @OneToOne
   @MapsId
   private User user;
