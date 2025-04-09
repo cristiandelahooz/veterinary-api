@@ -1,46 +1,48 @@
 package com.veterinarynux.veterinary_api.service;
 
-import com.veterinarynux.veterinary_api.model.User;
-import com.veterinarynux.veterinary_api.model.dto.UserDto;
-import com.veterinarynux.veterinary_api.repository.UserRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.veterinarynux.veterinary_api.mapper.UserMapper;
+import com.veterinarynux.veterinary_api.model.User;
+import com.veterinarynux.veterinary_api.model.dto.UserDto;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
-public class AuthService {
+@RequiredArgsConstructor
+public class AuthService implements UserDetailsService {
 
-  private final AuthenticationManager authenticationManager;
-  private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
+  private final UserService userService;
 
-  @Autowired
-  public AuthService(AuthenticationManager authenticationManager,
-      UserRepository userRepository,
-      PasswordEncoder passwordEncoder) {
-    this.authenticationManager = authenticationManager;
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userService.findUserByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+    List<GrantedAuthority> authorities = user.getRoles()
+        .stream()
+        .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+        .collect(Collectors.toList());
+    return new org.springframework.security.core.userdetails.User(
+        user.getUsername(),
+        user.getPassword(),
+        user.isActive(),
+        true,
+        true,
+        true, authorities);
   }
 
-  public Authentication authenticate(String email, String password) throws AuthenticationException {
-    return authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(email, password));
+  public void registerUser(UserDto user) {
+    User userEntity = UserMapper.INSTANCE.toEntity(user);
+    userService.registerUser(userEntity);
   }
 
-  public boolean registerUser(UserDto user) {
-    User existingUser = userRepository.findByEmail(user.getEmail());
-    if (existingUser == null) {
-      return false; // User already exists
-    }
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    User newUser = user.toUser();
-    userRepository.save(newUser);
-    return true;
-  }
 }
