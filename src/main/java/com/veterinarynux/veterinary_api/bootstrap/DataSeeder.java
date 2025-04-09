@@ -65,7 +65,8 @@ public class DataSeeder implements CommandLineRunner {
 
     Appointment appointment = Appointment.builder()
         .description("Annual check-up")
-        .date(LocalDateTime.now())
+        .startDate(LocalDateTime.now().withHour(11).withMinute(0).withSecond(0).withNano(0))
+        .endDate(LocalDateTime.now().withHour(13).withMinute(0).withSecond(0).withNano(0))
         .status(AppointmentStatus.SCHEDULED)
         .type(AppointmentType.CHECKUP)
         .clientDetails(details)
