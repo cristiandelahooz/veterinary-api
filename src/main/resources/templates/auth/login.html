@@ -164,22 +164,17 @@
           <p class="mt-3 text-white">Log In into your account to keep shortening your links.</p>
         </div>
 
-        <form method="post" class="flex flex-col items-center justify-center gap-y-5" action="/auth/login">
-          <label for="email">
+        <form method="post" class="flex flex-col items-center justify-center gap-y-5" th:action="@{/login}">
+          <label for="username">
             <input
               class="bg-btn-gray border-2 border-solid border-btn-gray-border w-96 py-3 px-6 focus:outline-none caret-btn-pink text-white rounded-full shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
-              id="email" type="email" name="email" placeholder="Enter your email here" required>
+              id="username" type="text" name="username" placeholder="Enter your username here" required>
           </label>
           <label for="password">
             <input
               class="bg-btn-gray border-2 border-solid border-btn-gray-border w-96 py-3 px-6 focus:outline-none caret-btn-pink text-white rounded-full shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
               id="password" type="password" name="password" placeholder="Enter your password here" required>
           </label>
-          <div class="flex items-center mb-4">
-            <input name="remember" id="default-checkbox" type="checkbox" value=""
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-            <label for="default-checkbox" class="font-normal text-white ms-2">Remember me</label>
-          </div>
           <button
             class="text-center text-white border border-solid hover:scale-110 transition border-btn-blue bg-btn-blue rounded-full w-44 py-3 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.10)]"
             type="submit">
