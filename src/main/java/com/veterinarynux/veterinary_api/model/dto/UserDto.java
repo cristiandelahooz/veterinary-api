@@ -1,6 +1,8 @@
 package com.veterinarynux.veterinary_api.model.dto;
 
-import com.veterinarynux.veterinary_api.model.User;
+import java.util.Set;
+
+import com.veterinarynux.veterinary_api.model.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,28 +24,23 @@ public class UserDto {
   @NotBlank(message = "Email cannot be blank")
   private String email;
 
+  @NotBlank(message = "Username cannot be blank")
+  private String username;
+
   @NotBlank(message = "Password cannot be blank")
   @Size(min = 6, message = "Password must be at least 6 characters long")
   private String password;
 
+  @NotBlank(message = "Role cannot be blank")
+  private Set<Role> roles;
+
   @NotBlank(message = "Phone number cannot be blank")
-  private String phoneNumber;
+  private String phone;
 
   @NotBlank(message = "Address cannot be blank")
   private String address;
 
   public UserDto() {
-  }
-
-  public User toUser() {
-    User user = User.builder()
-        .name(name)
-        .email(email)
-        .password(password)
-        .phoneNumber(phoneNumber)
-        .address(address)
-        .build();
-    return user;
   }
 
 }
