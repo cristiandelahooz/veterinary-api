@@ -2,17 +2,18 @@ package com.veterinarynux.veterinary_api.service;
 
 import com.veterinarynux.veterinary_api.model.Appointment;
 import com.veterinarynux.veterinary_api.repository.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AppointmentService {
 
-  @Autowired
-  private AppointmentRepository appointmentRepository;
+  private final AppointmentRepository appointmentRepository;
 
   public List<Appointment> getAllAppointments() {
     return appointmentRepository.findAll();
