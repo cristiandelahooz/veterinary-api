@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.veterinarynux.veterinary_api.model.Appointment;
 import com.veterinarynux.veterinary_api.service.AppointmentService;
+import com.veterinarynux.veterinary_api.util.CalendarUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,10 +51,27 @@ public class CalendarController {
         .collect(Collectors.toList());
 
     List<Appointment> appointments = appointmentService.getAllAppointments();
+    Map<String, List<Appointment>> appointmentsByDay = appointments.stream()
+        .filter(appointment -> {
+          LocalDate startOfWeek = LocalDate.now().with(DayOfWeek.MONDAY);
+          LocalDate endOfWeek = startOfWeek.plusDays(6);
+          LocalDate appointmentDate = appointment.getStartDate().toLocalDate();
+          return !appointmentDate.isBefore(startOfWeek) && !appointmentDate.isAfter(endOfWeek);
+        })
+        .collect(Collectors
+            .groupingBy(appointment -> appointment.getStartDate().format(DateTimeFormatter.ofPattern("MMM d"))));
 
+    // test if the appointment is in the current week
+    appointmentsByDay.forEach((day, appointmentList) -> {
+      appointmentList.forEach(appointment -> {
+        if (appointment.between(hours.get(5))) {
+          System.out.println("Appointment on " + day + "and hour" + hours.get(5) + " is between 11:00 am and 8:00 am");
+        }
+      });
+    });
     Map<String, Object> modelMap = new HashMap<>() {
       {
-        put("appointments", appointments);
+        put("appointmentsByDay", appointmentsByDay);
         put("year", year);
         put("month", month);
         put("today", today);
@@ -61,6 +79,7 @@ public class CalendarController {
         put("currentDate", currentDate);
         put("weekDays", weekDays);
         put("hours", hours);
+        put("calendarUtils", new CalendarUtils());
       }
     };
     model.addAllAttributes(modelMap);
