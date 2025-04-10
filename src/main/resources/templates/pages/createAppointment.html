@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Title</title>
   <link rel="stylesheet" th:href="@{/css/tailwind.css}">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body class="h-screen flex items-center justify-center bg-slate-950 text-white">
-<div class="relative w-full h-full flex flex-col items-center justify-center">
+  <div class="relative w-full h-full flex flex-col items-center justify-center">
 
-  <!-- Fondo cuadriculado -->
-  <div
-          class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
-          z-0>
-  </div>
+    <!-- Fondo cuadriculado -->
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+      z-0>
+    </div>
 
-  <form method="POST" class="bg-slate-800 p-8 rounded-lg shadow-lg w-96" th:action="@{/appointments}">
-    <h2 class="text-2xl font-bold text-center mb-4">Appointment creation</h2>
+    <form method="POST" class="bg-slate-800 p-8 rounded-lg shadow-lg w-96" th:action="@{/appointments}">
+      <h2 class="text-2xl font-bold text-center mb-4">Appointment creation</h2>
 
-    <div class="mb-3">
-      <h2 class="text-1xl font-extrabold  text-white">Client: </h2>
-      <input type="input" class="input validator" required name="clientUsername" placeholder="client"
-             pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
-      <p class="validator-hint">
+      <div class="mb-3">
+        <h2 class="text-1xl font-extrabold  text-white">Client: </h2>
+        <input type="input" class="text-gray-950 input validator" required name="clientUsername" placeholder="client"
+          pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
+        <p class="validator-hint">
           Must be a valid client username
-      </p>
-    </div>
+        </p>
+      </div>
 
-    <div class="mb-3">
-      <h2 class="text-1xl font-extrabold  text-white">Veterinarian: </h2>
-      <input type="input" class="input validator" required name="veterinarianUsername" placeholder="veterinarian"
-      pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
-      <p class="validator-hint">
-        Must be a valid veteriarian username
-      </p>
-    </div>
+      <div class="mb-3">
+        <h2 class="text-1xl font-extrabold  text-white">Veterinarian: </h2>
+        <input type="input" class="text-gray-950 input validator" required name="veterinarianUsername"
+          placeholder="veterinarian" pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30"
+          title="Only letters, numbers or dash" />
+        <p class="validator-hint">
+          Must be a valid veteriarian username
+        </p>
+      </div>
 
-    <div class="mb-3">
-      <h2 class="text-1xl font-extrabold  text-white">Starts: </h2>
-      <input type="datetime-local" class="input" name="start_time"/>
-    </div>
+      <div class="mb-3">
+        <h2 class="text-1xl font-extrabold  text-white">Starts: </h2>
+        <input type="datetime-local" class="text-gray-950 input" name="start_time" />
+      </div>
 
-    <div class="mb-3">
-      <h2 class="text-1xl font-extrabold  text-white">Ends: </h2>
-      <input type="datetime-local" class="input" name="end_time"/>
-    </div>
+      <div class="mb-3">
+        <h2 class="text-1xl font-extrabold  text-white">Ends: </h2>
+        <input type="datetime-local" class="text-gray-950 input" name="end_time" />
+      </div>
 
-    <div class="mb-3">
-      <h2 class="text-1xl font-extrabold  text-white">Description: </h2>
-      <input type="text" name="description" placeholder="Description" class="input" required />
-    </div>
-
-
-    <h2 class="text-1xl font-extrabold  text-white">Type: </h2>
-    <select class="select validator" name="appointment_type" required>
-      <option value="VACCINATION">Vaccination</option>
-      <option value="CHECKUP">Check up</option>
-      <option value="SURGERY">Surgery</option>
-      <option value="DENTAL_CLEANING">Dental cleaning</option>
-      <option value="GROOMING">Grooming</option>
-
-    </select>
-    <p class="validator-hint">Required</p>
-
-    <button
-            class="text-center text-white border border-solid hover:scale-110 transition border-btn-blue bg-btn-blue rounded-full w-80 py-3 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.10)]"
-            type="submit">
-      Submit
-    </button>
-  </form>
+      <div class="mb-3">
+        <h2 class="text-1xl font-extrabold  text-white">Description: </h2>
+        <input type="text" name="description" placeholder="Description" class="text-gray-950 input" required />
+      </div>
 
 
+      <h2 class="text-1xl font-extrabold  text-white">Type: </h2>
+      <select class="select validator" name="appointment_type" required>
+        <option value="VACCINATION">Vaccination</option>
+        <option value="CHECKUP">Check up</option>
+        <option value="SURGERY">Surgery</option>
+        <option value="DENTAL_CLEANING">Dental cleaning</option>
+        <option value="GROOMING">Grooming</option>
 
-</div>
+      </select>
+      <p class="validator-hint">Required</p>
+
+      <button
+        class="text-center text-white border border-solid hover:scale-110 transition border-btn-blue bg-btn-blue rounded-full w-80 py-3 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.10)]"
+        type="submit">
+        Submit
+      </button>
+    </form>
+
+
+
+  </div>
 </body>
+
 </html>

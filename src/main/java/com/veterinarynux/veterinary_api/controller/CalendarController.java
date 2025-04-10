@@ -46,7 +46,7 @@ public class CalendarController {
     String today = now.format(DateTimeFormatter.ofPattern("MMM d"));
 
     // Generate hours (e.g., "07:00 am", "08:00 am", ...)
-    List<String> hours = IntStream.range(7, 13) // 7 AM to 6 PM
+    List<String> hours = IntStream.range(7, 20) // 7 AM to 6 PM
         .mapToObj(hour -> LocalTime.of(hour, 0).format(DateTimeFormatter.ofPattern("hh:mm a")))
         .collect(Collectors.toList());
 
