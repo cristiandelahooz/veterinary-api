@@ -30,4 +30,9 @@ public class AppointmentService {
   public void deleteAppointment(Long id) {
     appointmentRepository.deleteById(id);
   }
+
+  public void updateAppointment(Appointment appointment) {
+    appointmentRepository.save(appointment);
+  }
+
 }

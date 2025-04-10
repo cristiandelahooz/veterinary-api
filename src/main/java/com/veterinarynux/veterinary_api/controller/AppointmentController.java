@@ -1,6 +1,7 @@
 package com.veterinarynux.veterinary_api.controller;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -80,6 +81,19 @@ public class AppointmentController {
         .build();
 
     appointmentService.createAppointment(appointment);
+    return "redirect:/calendar";
+  }
+
+  @PostMapping("/cancel")
+  public String cancelAppointment(@RequestParam Long appointmentId) {
+    Optional<Appointment> appointment = appointmentService.getAppointmentById(appointmentId);
+    if (appointment.isPresent()) {
+      Appointment existingAppointment = appointment.get();
+      existingAppointment.setStatus(AppointmentStatus.CANCELED);
+      appointmentService.updateAppointment(existingAppointment);
+    } else {
+      System.out.println("Appointment not found with ID: " + appointmentId);
+    }
     return "redirect:/calendar";
   }
 
