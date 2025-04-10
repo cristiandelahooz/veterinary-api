@@ -35,13 +35,13 @@
           <button
             class="rounded-lg py-2.5 px-5 text-sm font-medium text-gray-500 transition-all duration-300 hover:bg-white hover:text-indigo-600">Month</button>
         </div>
-        <button
-          class="py-2.5 pr-7 pl-5 bg-red-50 text-gray-950 rounded-xl flex items-center gap-2 text-base font-semibold transition-all duration-300 hover:text-gray-50 hover:bg-indigo-700">
+        <a th:href="@{/appointments}" class="py-2.5 pr-7 pl-5 bg-red-50 text-gray-950 rounded-xl flex items-center gap-2 text-base font-semibold
+          transition-all duration-300 hover:text-gray-50 hover:bg-indigo-700" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M10 5V15M15 10H5" stroke="black" stroke-width="1.6" stroke-linecap="round"></path>
           </svg>
           New Activity
-        </button>
+        </a>
         <form method="POST" th:action="@{/appointments/cancel}" class="hidden">
           <button
             class="py-2.5 pr-7 pl-5 bg-red-900 text-gray-50 rounded-xl flex items-center gap-2 text-base font-semibold transition-all duration-300 hover:text-gray-50 hover:bg-indigo-700">
