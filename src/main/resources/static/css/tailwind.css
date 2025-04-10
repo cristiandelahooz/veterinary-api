@@ -18,9 +18,11 @@
     --color-blue-500: oklch(0.623 0.214 259.815);
     --color-blue-600: oklch(0.546 0.245 262.881);
     --color-blue-900: oklch(0.379 0.146 265.522);
+    --color-indigo-50: oklch(0.962 0.018 272.314);
     --color-indigo-600: oklch(0.511 0.262 276.966);
     --color-indigo-700: oklch(0.457 0.24 277.023);
     --color-purple-50: oklch(0.977 0.014 308.299);
+    --color-purple-500: oklch(0.627 0.265 303.9);
     --color-purple-600: oklch(0.558 0.288 302.321);
     --color-slate-950: oklch(0.129 0.042 264.695);
     --color-gray-50: oklch(0.985 0.002 247.839);
@@ -29,6 +31,7 @@
     --color-gray-300: oklch(0.872 0.01 258.338);
     --color-gray-400: oklch(0.707 0.022 261.325);
     --color-gray-500: oklch(0.551 0.027 264.364);
+    --color-gray-700: oklch(0.373 0.034 259.733);
     --color-gray-900: oklch(0.21 0.034 264.665);
     --color-gray-950: oklch(0.13 0.028 261.692);
     --color-stone-50: oklch(0.985 0.001 106.423);
@@ -300,6 +303,9 @@
   .mt-14 {
     margin-top: calc(var(--spacing) * 14);
   }
+  .mb-1 {
+    margin-bottom: calc(var(--spacing) * 1);
+  }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
   }
@@ -317,6 +323,9 @@
   }
   .table {
     display: table;
+  }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
   }
   .h-20 {
     height: calc(var(--spacing) * 20);
@@ -363,6 +372,9 @@
   .max-w-lg {
     max-width: var(--container-lg);
   }
+  .table-fixed {
+    table-layout: fixed;
+  }
   .border-collapse {
     border-collapse: collapse;
   }
@@ -407,6 +419,9 @@
   }
   .justify-start {
     justify-content: flex-start;
+  }
+  .gap-1 {
+    gap: calc(var(--spacing) * 1);
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
@@ -453,6 +468,13 @@
   .rounded-xl {
     border-radius: var(--radius-xl);
   }
+  .rounded-l-lg {
+    border-top-left-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-lg);
+  }
+  .rounded-tl-lg {
+    border-top-left-radius: var(--radius-lg);
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -494,8 +516,14 @@
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
+  .border-gray-300 {
+    border-color: var(--color-gray-300);
+  }
   .border-green-600 {
     border-color: var(--color-green-600);
+  }
+  .border-indigo-600 {
+    border-color: var(--color-indigo-600);
   }
   .border-purple-600 {
     border-color: var(--color-purple-600);
@@ -509,11 +537,17 @@
   .bg-blue-100 {
     background-color: var(--color-blue-100);
   }
+  .bg-gray-50 {
+    background-color: var(--color-gray-50);
+  }
   .bg-gray-100 {
     background-color: var(--color-gray-100);
   }
   .bg-green-50 {
     background-color: var(--color-green-50);
+  }
+  .bg-indigo-50 {
+    background-color: var(--color-indigo-50);
   }
   .bg-indigo-600 {
     background-color: var(--color-indigo-600);
@@ -573,6 +607,9 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
   }
@@ -581,6 +618,9 @@
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .py-1 {
+    padding-block: calc(var(--spacing) * 1);
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
@@ -608,6 +648,12 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .align-top {
+    vertical-align: top;
   }
   .text-2xl {
     font-size: var(--text-2xl);
@@ -644,6 +690,9 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .text-\[10px\] {
+    font-size: 10px;
   }
   .leading-8 {
     --tw-leading: calc(var(--spacing) * 8);
@@ -690,6 +739,9 @@
   .text-gray-500 {
     color: var(--color-gray-500);
   }
+  .text-gray-700 {
+    color: var(--color-gray-700);
+  }
   .text-gray-900 {
     color: var(--color-gray-900);
   }
@@ -704,6 +756,9 @@
   }
   .text-orange-500 {
     color: var(--color-orange-500);
+  }
+  .text-purple-500 {
+    color: var(--color-purple-500);
   }
   .text-purple-600 {
     color: var(--color-purple-600);
@@ -844,6 +899,11 @@
   .sm\:hidden {
     @media (width >= 40rem) {
       display: none;
+    }
+  }
+  .sm\:grid-cols-7 {
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
     }
   }
   .sm\:justify-between {

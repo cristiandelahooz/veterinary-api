@@ -1,6 +1,5 @@
 package com.veterinarynux.veterinary_api.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -59,9 +58,7 @@ public class Appointment {
   }
 
   public boolean isDay(String day) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d");
-    LocalDate targetDate = LocalDate.parse(day, formatter);
-    return startDate.toLocalDate().equals(targetDate);
+    return startDate.format(DateTimeFormatter.ofPattern("MMM d")).equals(day);
   }
 
   private String formatHour(int hour) {
