@@ -34,10 +34,8 @@ public class CalendarController {
     int month = now.getMonthValue();
     int year = now.getYear();
 
-    // Generate current date string
     String currentDate = now.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
 
-    // Generate week days (e.g., "Jan 7", "Jan 8", ...)
     List<String> weekDays = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
         .datesUntil(now.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY)).plusDays(1))
         .map(date -> date.format(DateTimeFormatter.ofPattern("MMM d")))
@@ -45,8 +43,7 @@ public class CalendarController {
 
     String today = now.format(DateTimeFormatter.ofPattern("MMM d"));
 
-    // Generate hours (e.g., "07:00 am", "08:00 am", ...)
-    List<String> hours = IntStream.range(7, 20) // 7 AM to 6 PM
+    List<String> hours = IntStream.range(7, 20)
         .mapToObj(hour -> LocalTime.of(hour, 0).format(DateTimeFormatter.ofPattern("hh:mm a")))
         .collect(Collectors.toList());
 
@@ -61,14 +58,6 @@ public class CalendarController {
         .collect(Collectors
             .groupingBy(appointment -> appointment.getStartDate().format(DateTimeFormatter.ofPattern("MMM d"))));
 
-    // test if the appointment is in the current week
-    appointmentsByDay.forEach((day, appointmentList) -> {
-      appointmentList.forEach(appointment -> {
-        if (appointment.between(hours.get(5))) {
-          System.out.println("Appointment on " + day + "and hour" + hours.get(5) + " is between 11:00 am and 8:00 am");
-        }
-      });
-    });
     Map<String, Object> modelMap = new HashMap<>() {
       {
         put("appointmentsByDay", appointmentsByDay);
